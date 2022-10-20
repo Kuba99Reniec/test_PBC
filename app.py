@@ -21,6 +21,7 @@ zmienna = 'RS: Płeć'
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
+server = app.server
 app.layout = html.Div([
     html.H3('Porównanie rozkładów zmiennych: CAWI vs CAWI + CAPI (IX 2021 - VIII 2022)'),
     html.Label("Wybierz zmienną:"),
