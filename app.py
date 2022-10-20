@@ -6,8 +6,7 @@ import dash_core_components as dcc
 import dash_html_components as html
 import plotly.graph_objects as go
 import pandas as pd
-
-dane_cawi_capi = pd.read_csv("https://raw.githubusercontent.com/Kuba99Reniec/wykresy/master/dane_do_dasha.txt", encoding = 'ANSI)
+dane_cawi_capi = pd.read_csv("https://raw.githubusercontent.com/Kuba99Reniec/wykresy/master/dane_do_dasha.txt", sep="\t", encoding = 'ANSI')
 options = []
 for col in dane_cawi_capi.columns[:-1]:
     options.append({'label':'{}'.format(col, col), 'value':col})
