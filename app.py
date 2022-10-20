@@ -1,7 +1,5 @@
 #!/usr/bin/env python
 # coding: utf-8
-f!pip install dash
-!pip install pandas
 import dash
 from dash.dependencies import Input, Output, State
 import dash_core_components as dcc
