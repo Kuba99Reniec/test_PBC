@@ -6,6 +6,7 @@ import dash_core_components as dcc
 import dash_html_components as html
 import plotly.graph_objects as go
 import pandas as pd
+
 dane_cawi_capi = pd.read_csv("https://raw.githubusercontent.com/Kuba99Reniec/wykresy/master/dane_do_dasha.txt", sep="\t", encoding = 'ANSI')
 options = []
 for col in dane_cawi_capi.columns[:-1]:
@@ -93,7 +94,6 @@ def update_figure(value, fig):
         margin=dict(l=20, r=20, t=20, b=25),
     )
     return fig
-
 
 if __name__ == '__main__':
     app.run_server(debug=True)
