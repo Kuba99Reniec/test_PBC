@@ -16,7 +16,7 @@ wartosci = pd.read_csv("https://raw.githubusercontent.com/Kuba99Reniec/wykresy/m
 wartosci = wartosci.merge(zmienne, on = "Nazwa zmiennej")
 zmienna = 'RS: Płeć'
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
-app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
+app = dash.Dash('CAWI vs CAWI + CAPI', external_stylesheets=external_stylesheets)
 server = app.server
 app.layout = html.Div([
     html.Div(
@@ -34,18 +34,19 @@ app.layout = html.Div([
     dcc.Dropdown(
             id = 'my_dropdown',
             options= options,
-            value='Choose columns'
+            value='RS: Kategoria wieku (5 kategorii)'
         ),
-    html.Label(id='my_label'),
     dcc.Graph(
         id='graph',
-        figure=go.Figure()
-    )
+        style={'width': '49%', 'display': 'inline-block'}),
+    dcc.Graph(
+        id='graph_2',
+        style={'width': '49%', 'align': 'right', 'display': 'inline-block'})
 ])
 @app.callback(
     Output('graph', 'figure'),
     Input('my_dropdown', 'value'),
-    State('graph', 'figure'),
+    State('graph', 'figure')
 )
 def update_figure(value, fig):
     zmienna = value
@@ -62,35 +63,52 @@ def update_figure(value, fig):
                     0])
         else:
             names_cawi = names_cawi_pom
-    fig = go.Figure()
-    fig.add_trace(go.Funnelarea(
+    trace_1 = go.Funnelarea(
         name="CAWI",
         scalegroup="first",
         text=names_cawi,
         values=values_cawi,
         showlegend=False,
         marker={"colors": ["lawngreen", "darkorange", "red", "yellow", "blue", "peru", "darkviolet"]},
-        title={"position": "top center", "text": "CAWI"},
-    ))
-    fig.add_trace(go.Funnelarea(
+        title={"position": "top center", "text": "CAWI"}
+    )
+    fig = go.Figure(trace_1)
+    fig.update_traces(title_font_size=20)
+    fig.update_traces(title_position='top center')
+    fig.update_layout(margin=dict(l=300, r=0, t=10, b=10))
+    return fig
+@app.callback(
+    Output('graph_2', 'figure'),
+    Input('my_dropdown', 'value'),
+    State('graph_2', 'figure')
+)
+def update_figure(value, fig):
+    zmienna = value
+    df_pom = pd.DataFrame(dane_cawi_capi[dane_cawi_capi['badanie'] == 'cawi'][zmienna].value_counts())
+    names_cawi_pom = df_pom.index.to_list()
+    values_cawi = df_pom[zmienna].to_list()
+    values_cawi_capi = []
+    names_cawi = []
+    for i in names_cawi_pom:
+        values_cawi_capi.append(len(dane_cawi_capi[dane_cawi_capi[zmienna] == i]))
+        if zmienna in wartosci['Etykieta zmiennej'].to_list():
+            names_cawi.append(
+                wartosci[(wartosci['Etykieta zmiennej'] == zmienna) & (wartosci['wartość'] == i)]['Etykieta'].to_list()[
+                    0])
+        else:
+            names_cawi = names_cawi_pom
+    trace_2 = go.Funnelarea(
         name="CAWI + CAPI",
-        scalegroup="third",
         text=names_cawi,
         values=values_cawi_capi,
         textinfo="percent",
         title={"position": "top center", "text": "CAWI+CAPI"},
-        showlegend=False,
-        domain={"x": [.75, 1]}
-    ))
-    fig.update_layout(
-        autosize=False,
-        width=1150,
-        height=600)
+        marker={"colors": ["lawngreen", "darkorange", "red", "yellow", "blue", "peru", "darkviolet"]},
+        showlegend=False)
+    fig = go.Figure(trace_2)
     fig.update_traces(title_font_size=20)
     fig.update_traces(title_position='top center')
-    fig.update_layout(
-        margin=dict(l=20, r=20, t=20, b=25),
-    )
+    fig.update_layout(margin=dict(l=0, r=300, t=10, b=10))
     return fig
 if __name__ == '__main__':
     app.run_server(debug=True)
