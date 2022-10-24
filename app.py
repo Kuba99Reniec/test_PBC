@@ -4,6 +4,7 @@ import dash_core_components as dcc
 import dash_html_components as html
 import plotly.graph_objects as go
 import pandas as pd
+import seaborn as sns
 dane_cawi_capi = pd.read_csv("https://raw.githubusercontent.com/Kuba99Reniec/wykresy/master/dane_do_dasha.txt", sep="\t")
 options = []
 for col in dane_cawi_capi.columns[:-1]:
@@ -65,7 +66,7 @@ def update_figure(value, fig):
         text=names_cawi,
         values=values_cawi,
         showlegend=False,
-        marker={"colors": ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b", "#e377c2", "#7f7f7f", "#bcbd22", "#17becf"]},
+        marker={"colors": ['#a6cee3', '#1f78b4', '#b2df8a', '#33a02c', '#fb9a99', '#e31a1c', '#fdbf6f', '#ff7f00', '#cab2d6', '#6a3d9a', '#ffff99', '#b15928']},
         title={"position": "top center", "text": "CAWI"}
     )
     fig = go.Figure(trace_1)
@@ -98,9 +99,8 @@ def update_figure(value, fig):
         name="CAWI + CAPI",
         text=names_cawi,
         values=values_cawi_capi,
-       # textinfo="percent",
         title={"position": "top center", "text": "CAWI+CAPI"},
-        marker={"colors": ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b", "#e377c2", "#7f7f7f", "#bcbd22", "#17becf"]},
+        marker={"colors": ['#a6cee3', '#1f78b4', '#b2df8a', '#33a02c', '#fb9a99', '#e31a1c', '#fdbf6f', '#ff7f00', '#cab2d6', '#6a3d9a', '#ffff99', '#b15928']},
         showlegend=False)
     fig = go.Figure(trace_2)
     fig.update_traces(title_font_size=20)
