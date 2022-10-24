@@ -71,7 +71,7 @@ def update_figure(value, fig):
     fig = go.Figure(trace_1)
     fig.update_traces(title_font_size=20)
     fig.update_traces(title_position='top center')
-    fig.update_layout(margin=dict(t=0, b=0, l=0, r=0))
+    fig.update_layout(margin=dict(t=0, b=10, l=0, r=0))
     fig.update_traces(aspectratio=0.6)
     return fig
 @app.callback(
@@ -98,14 +98,14 @@ def update_figure(value, fig):
         name="CAWI + CAPI",
         text=names_cawi,
         values=values_cawi_capi,
-        textinfo="percent",
+       # textinfo="percent",
         title={"position": "top center", "text": "CAWI+CAPI"},
         marker={"colors": ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b", "#e377c2", "#7f7f7f", "#bcbd22", "#17becf"]},
         showlegend=False)
     fig = go.Figure(trace_2)
     fig.update_traces(title_font_size=20)
     fig.update_traces(title_position='top center')
-    fig.update_layout(margin=dict(t=0, b=0, l=0, r=0))
+    fig.update_layout(margin=dict(t=0, b=10, l=0, r=0))
     fig.update_traces(aspectratio=0.6)
     return fig
 if __name__ == '__main__':
