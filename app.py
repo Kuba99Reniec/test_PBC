@@ -71,7 +71,7 @@ def update_figure(value, fig):
     fig = go.Figure(trace_1)
     fig.update_traces(title_font_size=20)
     fig.update_traces(title_position='top center')
-    fig.update_layout(margin=dict(t=0, b=20, l=0, r=0))
+    fig.update_layout(margin=dict(t=0, b=30, l=0, r=0))
     fig.update_traces(aspectratio=0.6)
     return fig
 @app.callback(
@@ -105,7 +105,7 @@ def update_figure(value, fig):
     fig = go.Figure(trace_2)
     fig.update_traces(title_font_size=20)
     fig.update_traces(title_position='top center')
-    fig.update_layout(margin=dict(t=0, b=20, l=0, r=0))
+    fig.update_layout(margin=dict(t=0, b=30, l=0, r=0))
     fig.update_traces(aspectratio=0.6)
     return fig
 if __name__ == '__main__':
