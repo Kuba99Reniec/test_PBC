@@ -47,7 +47,7 @@ app.layout = html.Div([
         className="header",
         style={"backgroundColor": "#3c6382"},
         children=[html.H3(
-            "Porównanie rozkładów zmiennych: CAWI vs CAWI + CAPI (IX 2021 - VIII 2022)",
+            "Analiza: CAWI vs CAWI + CAPI (IX 2021 - VIII 2022)",
             style={
                 "color": "white",
                 "padding": "20px 0 20px 0",
