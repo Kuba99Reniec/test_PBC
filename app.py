@@ -18,11 +18,11 @@ tytuly = tytuly.reset_index(drop = True)
 cpw = pd.DataFrame()
 dane_cawi = dane_cawi_capi[dane_cawi_capi['badanie'] == 'cawi']
 for i in range(len(tytuly)):
+    cpw.loc[tytuly.loc[i, 'tytul'], 'CAWI + CAPI'] = round(
+                np.average(dane_cawi_capi[tytuly.loc[i, 'zmienna'] + '5'], weights=dane_cawi_capi['WAGAOSOB']), 2)
     cpw.loc[tytuly.loc[i, 'tytul'], 'CPW: CAWI'] = round(
                 np.average(dane_cawi[tytuly.loc[i, 'zmienna'] + '5'], weights=dane_cawi['WAGAOSOB']), 2)
-    cpw.loc[tytuly.loc[i, 'tytul'], 'CPW: CAWI + CAPI'] = round(
-                np.average(dane_cawi_capi[tytuly.loc[i, 'zmienna'] + '5'], weights=dane_cawi_capi['WAGAOSOB']), 2)
-    cpw.loc[tytuly.loc[i, 'tytul'], 'CPW do raportu czytelnictwa'] = round(
+    cpw.loc[tytuly.loc[i, 'tytul'], 'CPW: CPW do raportu czytelnictwa'] = round(
                 np.average(dane_cawi_capi[tytuly.loc[i, 'zmienna'] + '5_2C'], weights=dane_cawi_capi['WAGAOSOB']),
                 2)
     cpw.loc[tytuly.loc[i, 'tytul'], 'CPW do mediaplanu'] = round(
@@ -54,19 +54,7 @@ app.layout = html.Div([
                 "textAlign": "center"}
         )],
     ),
-    html.Label("Wybierz zmienną:"),
-    dcc.Dropdown(
-            id = 'my_dropdown',
-            options= options,
-            value='RS: Płeć'
-        ),
-    dcc.Graph(
-        id='graph',
-        style={'width': '49%', 'display': 'inline-block', 'height': '82%'}),
-    dcc.Graph(
-        id='graph_2',
-        style={'width': '49%', 'align': 'right', 'display': 'inline-block', 'height': '82%'}),
-    html.Label("Wybierz grupę tematyczną:"),
+html.Label("Wybierz grupę tematyczną:"),
     dcc.Dropdown(
             id = 'table_dropdown',
             options=options_2,
@@ -95,7 +83,19 @@ app.layout = html.Div([
              'width': '21%', 'textAlign': 'center'},
             {'if': {'column_id': 'CPW do mediaplanu'},
              'width': '21%', 'textAlign': 'center'}
-        ])
+        ]),
+    html.Label("Wybierz zmienną:"),
+    dcc.Dropdown(
+            id = 'my_dropdown',
+            options= options,
+            value='RS: Płeć'
+        ),
+    dcc.Graph(
+        id='graph',
+        style={'width': '49%', 'display': 'inline-block', 'height': '82%'}),
+    dcc.Graph(
+        id='graph_2',
+        style={'width': '49%', 'align': 'right', 'display': 'inline-block', 'height': '82%'})
 ])
 @app.callback(
     Output('graph', 'figure'),
