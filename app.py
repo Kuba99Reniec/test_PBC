@@ -22,7 +22,7 @@ for i in range(len(tytuly)):
                 np.average(dane_cawi_capi[tytuly.loc[i, 'zmienna'] + '5'], weights=dane_cawi_capi['WAGAOSOB']), 2)
     cpw.loc[tytuly.loc[i, 'tytul'], 'CPW: CAWI'] = round(
                 np.average(dane_cawi[tytuly.loc[i, 'zmienna'] + '5'], weights=dane_cawi['WAGAOSOB']), 2)
-    cpw.loc[tytuly.loc[i, 'tytul'], 'CPW: CPW do raportu czytelnictwa'] = round(
+    cpw.loc[tytuly.loc[i, 'tytul'], 'CPW do raportu czytelnictwa'] = round(
                 np.average(dane_cawi_capi[tytuly.loc[i, 'zmienna'] + '5_2C'], weights=dane_cawi_capi['WAGAOSOB']),
                 2)
     cpw.loc[tytuly.loc[i, 'tytul'], 'CPW do mediaplanu'] = round(
