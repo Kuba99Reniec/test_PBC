@@ -18,11 +18,11 @@ tytuly = tytuly.reset_index(drop = True)
 cpw = pd.DataFrame()
 dane_cawi = dane_cawi_capi[dane_cawi_capi['badanie'] == 'cawi']
 for i in range(len(tytuly)):
-    cpw.loc[tytuly.loc[i, 'tytul'], 'CPW oryginalne'] = round(
+    cpw.loc[tytuly.loc[i, 'tytul'], 'CPW: CAWI + CAPI'] = round(
                 np.average(dane_cawi_capi[tytuly.loc[i, 'zmienna'] + '5'], weights=dane_cawi_capi['WAGAOSOB']), 2)
-    cpw.loc[tytuly.loc[i, 'tytul'], 'CPW oryginalne po przejściu na CAWI'] = round(
+    cpw.loc[tytuly.loc[i, 'tytul'], 'CPW: CAWI'] = round(
                 np.average(dane_cawi[tytuly.loc[i, 'zmienna'] + '5'], weights=dane_cawi['WAGAOSOB']), 2)
-    cpw.loc[tytuly.loc[i, 'tytul'], 'CPW do raportu czytelnictwa'] = round(
+    cpw.loc[tytuly.loc[i, 'tytul'], 'CPW: CPW do raportu czytelnictwa'] = round(
                 np.average(dane_cawi_capi[tytuly.loc[i, 'zmienna'] + '5_2C'], weights=dane_cawi_capi['WAGAOSOB']),
                 2)
     cpw.loc[tytuly.loc[i, 'tytul'], 'CPW do mediaplanu'] = round(
@@ -87,9 +87,9 @@ app.layout = html.Div([
         style_cell_conditional=[
             {'if': {'column_id': ''},
              'width': '16%', 'textAlign': 'left'},
-            {'if': {'column_id': 'CPW oryginalne'},
+            {'if': {'column_id': 'CPW: CAWI + CAPI'},
              'width': '21%', 'textAlign': 'center'},
-            {'if': {'column_id': 'CPW oryginalne po przejściu na CAWI'},
+            {'if': {'column_id': 'CPW: CAWI'},
              'width': '21%', 'textAlign': 'center'},
             {'if': {'column_id': 'CPW do raportu czytelnictwa'},
              'width': '21%', 'textAlign': 'center'},
