@@ -54,36 +54,6 @@ app.layout = html.Div([
                 "textAlign": "center"}
         )],
     ),
-html.Label("Wybierz grupę tematyczną:"),
-    dcc.Dropdown(
-            id = 'table_dropdown',
-            options=options_2,
-            value='kobiece: exclusive'
-        ),
-    dash_table.DataTable(
-        id='dynamic_table',
-        columns=[{'name': col, 'id': col} for col in cpw.columns],
-        data=cpw.to_dict('records'),
-        style_data={
-        'color': 'black',
-        'backgroundColor': 'white'},
-        style_data_conditional=[
-        {
-            'if': {'row_index': 'odd'},
-            'backgroundColor': 'rgb(220, 220, 220)',
-        }],
-        style_cell_conditional=[
-            {'if': {'column_id': ''},
-             'width': '16%', 'textAlign': 'left'},
-            {'if': {'column_id': 'CPW: CAWI + CAPI'},
-             'width': '21%', 'textAlign': 'center'},
-            {'if': {'column_id': 'CPW: CAWI'},
-             'width': '21%', 'textAlign': 'center'},
-            {'if': {'column_id': 'CPW do raportu czytelnictwa'},
-             'width': '21%', 'textAlign': 'center'},
-            {'if': {'column_id': 'CPW do mediaplanu'},
-             'width': '21%', 'textAlign': 'center'}
-        ]),
     html.Label("Wybierz zmienną:"),
     dcc.Dropdown(
             id = 'my_dropdown',
@@ -164,9 +134,5 @@ def update_figure(value, fig):
     fig.update_layout(margin=dict(t=0, b=30, l=0, r=0))
     fig.update_traces(aspectratio=0.5)
     return fig
-@app.callback(Output('dynamic_table','data'),
-             [Input('table_dropdown','value')],)
-def get_corresponding_rows(value):
-    return cpw.loc[sorted(list(set(tytuly['tytul'][tytuly['grupa tematyczna']==value].to_list()))),].to_dict('records')
 if __name__ == '__main__':
     app.run_server(debug=True)
