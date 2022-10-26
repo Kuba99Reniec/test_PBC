@@ -18,7 +18,7 @@ tytuly = tytuly.reset_index(drop = True)
 cpw = pd.DataFrame()
 dane_cawi = dane_cawi_capi[dane_cawi_capi['badanie'] == 'cawi']
 for i in range(len(tytuly)):
-       cpw.loc[tytuly.loc[i, 'tytul'], 'CPW: CAWI'] = round(
+    cpw.loc[tytuly.loc[i, 'tytul'], 'CPW: CAWI'] = round(
                 np.average(dane_cawi[tytuly.loc[i, 'zmienna'] + '5'], weights=dane_cawi['WAGAOSOB']), 2)
     cpw.loc[tytuly.loc[i, 'tytul'], 'CPW: CAWI + CAPI'] = round(
                 np.average(dane_cawi_capi[tytuly.loc[i, 'zmienna'] + '5'], weights=dane_cawi_capi['WAGAOSOB']), 2)
