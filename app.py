@@ -17,11 +17,14 @@ tytuly = tytuly[tytuly['zmienna']!='VOGUE']
 tytuly = tytuly.reset_index(drop = True)
 cpw = pd.DataFrame()
 dane_cawi = dane_cawi_capi[dane_cawi_capi['badanie'] == 'cawi']
+dane_capi = dane_cawi_capi[dane_cawi_capi['badanie'] == 'capi']
 for i in range(len(tytuly)):
     cpw.loc[tytuly.loc[i, 'tytul'], 'CPW: CAWI'] = round(
-                np.average(dane_cawi[tytuly.loc[i, 'zmienna'] + '5'], weights=dane_cawi['WAGAOSOB']), 2)
+        np.average(dane_cawi[tytuly.loc[i, 'zmienna'] + '5'], weights=dane_cawi['WAGAOSOB']), 2)
+    cpw.loc[tytuly.loc[i, 'tytul'], 'CPW: CAPI'] = round(
+        np.average(dane_capi[tytuly.loc[i, 'zmienna'] + '5'], weights=dane_capi['WAGAOSOB']), 2)
     cpw.loc[tytuly.loc[i, 'tytul'], 'CPW: CAWI + CAPI'] = round(
-                np.average(dane_cawi_capi[tytuly.loc[i, 'zmienna'] + '5'], weights=dane_cawi_capi['WAGAOSOB']), 2)
+        np.average(dane_cawi_capi[tytuly.loc[i, 'zmienna'] + '5'], weights=dane_cawi_capi['WAGAOSOB']), 2)
     cpw.loc[tytuly.loc[i, 'tytul'], 'CPW do raportu czytelnictwa'] = round(
                 np.average(dane_cawi_capi[tytuly.loc[i, 'zmienna'] + '5_2C'], weights=dane_cawi_capi['WAGAOSOB']),
                 2)
@@ -60,7 +63,7 @@ html.Label("Wybierz grupę tematyczną:"),
             options=options_2,
             value='kobiece: exclusive'
         ),
-    dash_table.DataTable(
+        dash_table.DataTable(
         id='dynamic_table',
         columns=[{'name': col, 'id': col} for col in cpw.columns],
         data=cpw.to_dict('records'),
@@ -74,18 +77,20 @@ html.Label("Wybierz grupę tematyczną:"),
         }],
         style_cell_conditional=[
             {'if': {'column_id': ''},
-             'width': '16%', 'textAlign': 'left'},
+             'width': '15%', 'textAlign': 'left'},
             {'if': {'column_id': 'CPW: CAWI + CAPI'},
-             'width': '21%', 'textAlign': 'center'},
+             'width': '17%', 'textAlign': 'center'},
+            {'if': {'column_id': 'CPW: CAPI'},
+             'width': '17%', 'textAlign': 'center'},
             {'if': {'column_id': 'CPW: CAWI'},
-             'width': '21%', 'textAlign': 'center'},
+             'width': '17%', 'textAlign': 'center'},
             {'if': {'column_id': 'CPW do raportu czytelnictwa'},
-             'width': '21%', 'textAlign': 'center'},
+             'width': '17%', 'textAlign': 'center'},
             {'if': {'column_id': 'CPW do mediaplanu'},
-             'width': '21%', 'textAlign': 'center'}
+             'width': '17%', 'textAlign': 'center'}
         ]),
     html.Label("Wybierz zmienną:"),
-    dcc.Dropdown(
+     dcc.Dropdown(
             id = 'my_dropdown',
             options= options,
             value='RS: Płeć'
@@ -169,4 +174,4 @@ def update_figure(value, fig):
 def get_corresponding_rows(value):
     return cpw.loc[sorted(list(set(tytuly['tytul'][tytuly['grupa tematyczna']==value].to_list()))),].to_dict('records')
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run_server()
