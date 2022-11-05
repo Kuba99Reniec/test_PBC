@@ -141,7 +141,7 @@ def update_figure(value, fig):
     values_cawi = df_pom[zmienna].to_list()
     values_cawi_capi = []
     names_cawi = []
-        for i in names_cawi_pom:
+    for i in names_cawi_pom:
         values_cawi_capi.append(len(dane_cawi_capi[dane_cawi_capi[zmienna] == i]))
         if zmienna in wartosci['Etykieta zmiennej'].to_list():
             names_cawi.append(
