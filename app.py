@@ -265,7 +265,7 @@ def update_figure(value, pismo, fig):
             values_cawi_capi.append(float(df_pom_2[df_pom_2.index == i]))
         except:
             values_cawi_capi.append(0)
-                    if zmienna in wartosci['Etykieta zmiennej'].to_list():
+        if zmienna in wartosci['Etykieta zmiennej'].to_list():
             names_cawi.append(
                 wartosci[(wartosci['Etykieta zmiennej'] == zmienna) & (wartosci['wartość'] == i)]['Etykieta'].to_list()[
                     0])
