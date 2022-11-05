@@ -106,7 +106,7 @@ html.Label("Wybierz zmienną:"),
             {'if': {'column_id': 'CPW do mediaplanu'},
              'width': '17%', 'textAlign': 'center'}
         ]),
-      html.Label("Wybierz czasopismo:"),
+    html.Label("Wybierz czasopismo:"),
     dcc.Dropdown(
             id = 'table_czasopismo'
         ),
