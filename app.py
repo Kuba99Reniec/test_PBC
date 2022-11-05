@@ -221,7 +221,7 @@ def update_figure(value, pismo, fig):
     for i in names_cawi_pom:
         try:
             values_cawi_capi.append(float(df_pom_2[df_pom_2.index == i]))
-             except:
+        except:
             values_cawi_capi.append(0)
         if zmienna in wartosci['Etykieta zmiennej'].to_list():
             names_cawi.append(
